@@ -1,0 +1,18 @@
+
+type Query {
+  repositories: [OCIRepository]
+  repository(name: String): OCIRepository
+  hello(name: String): String
+}
+
+type Mutation {
+  createRepository(name: String): OCIRepository
+  deleteRepository(name: String): OCIRepository
+}
+
+"Represents an OCI image repository"
+type OCIRepository {
+  "The name of the repository"
+  name: String @deprecated
+}
+

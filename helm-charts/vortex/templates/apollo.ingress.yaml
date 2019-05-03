@@ -1,0 +1,29 @@
+{{- if .Values.apollo.ingress.enabled -}}
+{{- $fullName := include "vortex.fullname" . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-apollo
+  labels:
+    app.kubernetes.io/name: {{ include "vortex.name" . }}
+    helm.sh/chart: {{ include "vortex.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  {{- with .Values.apollo.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  tls:
+    - hosts:
+        - {{ .Values.apollo.ingress.host | quote }}
+      secretName: {{ .Values.apollo.ingress.tlsSecret }}
+  rules:
+    - host: {{ .Values.apollo.ingress.host | quote }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ $fullName }}-apollo
+              servicePort: http
+{{- end }}

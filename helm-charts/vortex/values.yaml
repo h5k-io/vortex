@@ -1,0 +1,34 @@
+nameOverride: ""
+fullnameOverride: ""
+
+apollo:
+  deployment:
+    replicaCount: 1
+    image:
+      repository: quay.io/h5k/vortex-apollo
+      tag: latest
+    resources: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+  ingress:
+    enabled: true
+    annotations: {}
+    host: apollo.vortex.minikube
+    tlsSecret: minikube-tls
+
+vue:
+  deployment:
+    replicaCount: 1
+    image:
+      repository: quay.io/h5k/vortex-vue
+      tag: latest
+    resources: {}
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+  ingress:
+    enabled: true
+    annotations: {}
+    host: vue.vortex.minikube
+    tlsSecret: minikube-tls

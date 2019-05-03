@@ -1,0 +1,21 @@
+{
+  "name": "vortex-apollo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-datasource-rest": "^0.3.2",
+    "apollo-server": "^2.4.8",
+    "axios": "^0.18.0",
+    "graphql": "^14.2.1",
+    "merge-graphql-schemas": "^1.5.8",
+    "oasgraph": "^0.14.1",
+    "path": "^0.12.7"
+  }
+}

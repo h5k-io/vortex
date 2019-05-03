@@ -1,0 +1,29 @@
+{{- if .Values.vue.ingress.enabled -}}
+{{- $fullName := include "vortex.fullname" . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-vue
+  labels:
+    app.kubernetes.io/name: {{ include "vortex.name" . }}
+    helm.sh/chart: {{ include "vortex.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  {{- with .Values.vue.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  tls:
+    - hosts:
+        - {{ .Values.vue.ingress.host | quote }}
+      secretName: {{ .Values.vue.ingress.tlsSecret }}
+  rules:
+    - host: {{ .Values.vue.ingress.host | quote }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ $fullName }}-vue
+              servicePort: http
+{{- end }}
